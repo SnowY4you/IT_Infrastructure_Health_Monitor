@@ -2,6 +2,14 @@ import os
 import sqlite3
 import json
 
+# 1. Get the directory where create_db.py lives (D:\...\ITAM)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Get the Parent directory (Main Folder: D:\...\IT_Infrastructure_Health_Monitor)
+parent_dir = os.path.dirname(current_dir)
+
+# 3. Define the database path in that main folder
+db_name = os.path.join(parent_dir, "itam.db")
 
 def load_data(json_file):
     with open(json_file, 'r', encoding='utf-8') as file:
@@ -229,8 +237,6 @@ if __name__ == "__main__":
     create_database(db_name)
     print(f"Database created at {db_name}")
 
-
-
     for table, file_path in json_files.items():
         if os.path.exists(file_path):
             insert_data(db_name, table, load_data(file_path))
@@ -240,4 +246,4 @@ if __name__ == "__main__":
     assign_apps_servers(db_name)
     assign_apps_laptops(db_name)
 
-    print("\nSUCCESS: Infrastructure Map Built and Connected.")
+    print(f"\nSUCCESS: Database created at: {db_name}")
