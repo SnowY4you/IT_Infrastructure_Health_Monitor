@@ -5,11 +5,11 @@ watchdog==6.0.0          # Built-in
 # --- GUI & Frontend ---
 pyside6==6.10.1
 
-# --- Machine Learning & Analytics ---
+#  --- Machine Learning & Analytics ---
 numpy               # Required for your ML engine
 scikit-learn>=1.5.0  # Changed from 1.8.0 to a valid version range
 
-# --- Monitoring & Observability ---
+#  --- Monitoring & Observability ---
 prometheus_client==0.24.1
 grafanalib==0.7.1
 requests==2.32.5
