@@ -2,9 +2,9 @@ name: ITAM System Tests
 
 on:
   push:
-    branches: [ "main", "master", "GUI-interface" ]
+    branches: [ "main", "master", "Structure", "GUI-interface" ]
   pull_request:
-    branches: [ "main", "master", "GUI-interface" ]
+    branches: [ "main", "master", "Structure", "GUI-interface" ]
 
 jobs:
   test:
