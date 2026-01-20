@@ -1,7 +1,6 @@
 # --- Core Infrastructure ---
 psutil==7.2.1
-watchdog==6.0.0
-sqlite3             # Built-in
+watchdog==6.0.0          # Built-in
 
 # --- GUI & Frontend ---
 pyside6==6.10.1
