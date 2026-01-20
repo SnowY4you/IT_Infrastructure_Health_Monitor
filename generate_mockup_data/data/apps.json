@@ -1,6 +1,36 @@
 [
+    {
+    "app_name": "Citrix Virtual Apps and Desktops",
+    "app_version": "7",
+    "build": "2511",
+    "cmdb_category": "Infrastructure",
+    "cmdb_subcategory": "Citrix",
+    "cmdb_ci": "citrix_vdi_solution",
+    "vendor": "Citrix",
+    "device_type": "Server Application"
+  },
+    {
+    "app_name": "Citrix Workspace",
+    "app_version": "2511.1",
+    "build": "25.11.1.209(2511)",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "Citrix",
+    "cmdb_ci": "citrix_vdi_workspace",
+    "vendor": "Citrix",
+    "device_type": "Client Application"
+  },
+    {
+    "app_name": "NetScaler Gateway",
+    "app_version": "14.1",
+    "build": "14.1-60.52",
+    "cmdb_category": "Network",
+    "cmdb_subcategory": "Security Appliance",
+    "cmdb_ci": "cmdb_ci_appl_net",
+    "vendor": "Citrix",
+    "device_type": "Security"
+  },
   {
-    "app_name": "Word 2019",
+    "app_name": "Word",
     "app_version": "2512",
     "build": "19530.20144",
     "cmdb_category": "Application",
@@ -10,7 +40,7 @@
     "device_type": "Laptop/Desktop"
   },
   {
-    "app_name": "Excel 2019",
+    "app_name": "Excel",
     "app_version": "2512",
     "build": "19530.20144",
     "cmdb_category": "Application",
@@ -20,7 +50,7 @@
     "device_type": "Laptop/Desktop"
   },
   {
-    "app_name": "OneDrive 2019",
+    "app_name": "OneDrive",
     "app_version": "2512",
     "build": "19530.20144",
     "cmdb_category": "Application",
@@ -30,9 +60,9 @@
     "device_type": "Cloud Storage"
   },
   {
-    "app_name": "Outlook 2019",
+    "app_name": "Outlook",
     "app_version": "2512",
-    "build": "19530.20144",
+    "build": "19530.20138",
     "cmdb_category": "Application",
     "cmdb_subcategory": "O365",
     "cmdb_ci": "microsoft_outlook",

@@ -28,6 +28,8 @@ def input_data():
             "phone_number": phone_number,
             "email": email,
             "hostname": "",
+            "status": "",
+            "last_checked": ""
         })
 
     # Ensure only 10 unique first-last name combinations, used at most 3 times each
