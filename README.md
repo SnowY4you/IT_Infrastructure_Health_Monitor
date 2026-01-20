@@ -2,6 +2,8 @@
 
 ## Enhanced Project Architecture: "The Self-Healing Guardian"
 
+![Tests Status](https://github.com/SnowY4you/IT_Infrastructure_Health_Monitor/SnowY4you/<REPOSITORY>/actions/workflows/test_all_functions.yml/badge.svg)
+
 ### 1. Diagnostic Automation & RCA Logic
 - **The Triage Script**: When a service fails, Python triggers a diagnostic suite (using Subprocess to run PowerShell or Bash scripts) that checks:
 - **Logs**: Scans the last 100 lines of system logs for specific error codes (e.g., OOM Killer or Segmentation Fault).

@@ -8,7 +8,7 @@ fake = Faker()
 # Generate IP and MAC addresses
 pc_address = []
 
-for i in range(2000):
+for i in range(2500):
     # Generate random IP and MAC addresses
     ip_address = f"{random.randint(192, 192)}.{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}"
     mac_address = fake.mac_address()

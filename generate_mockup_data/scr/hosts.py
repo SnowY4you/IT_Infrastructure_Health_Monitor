@@ -35,7 +35,7 @@ for _ in range(10):
     })
 
 # Generate hostnames for firewalls
-products_firewall = ["Palo Alto"]
+products_firewall = ["Palo Alto FW"]
 for _ in range(5):
     hostname = f"Firewall_{random.randint(100, 999)}"
     hostnames.append({
@@ -45,6 +45,23 @@ for _ in range(5):
         "cmdb_categori": "Network",
         "cmdb_subcategori": "Firewall",
         "cmdb_ci": "palo_also_firewall",
+        "ip": ""
+    })
+
+# Generate hostnames for firewalls
+products_vpn = ["Palo Alto VPN"]
+for _ in range(5):
+    hostname = f"VPN_{random.randint(100, 999)}"
+    hostnames.append({
+        "hostname": hostname,
+        "type": "VPN",
+        "product": "Palo Alto GlobalProtect",
+        "cmdb_categori": "Network",
+        "cmdb_subcategori": "Security",
+        "cmdb_ci": "palo_alto_vpn",
+        "status": "",
+        "last_checked": "",
+        "assigned_app": "",
         "ip": ""
     })
 
@@ -59,6 +76,9 @@ for _ in range(20):
         "cmdb_categori": "Network",
         "cmdb_subcategori": "Storage",
         "cmdb_ci": "windows_storage_server",
+        "status": "",
+        "last_checked": "",
+        "assigned_app": "",
         "ip": ""
     })
 
@@ -68,31 +88,37 @@ for _ in range(10):
     hostname = f"DNS_{random.randint(100, 999)}"
     hostnames.append({
         "hostname": hostname,
-        "type": "dns_server",
-        "product": random.choice(products_dns),
+        "type": "Cloud_Service",
+        "product": "Azure DNS",
         "cmdb_categori": "Network",
         "cmdb_subcategori": "DNS",
         "cmdb_ci": "azure_dns_server",
+        "status": "",
+        "last_checked": "",
+        "assigned_app": "",
         "ip": ""
     })
 
 # Generate hostnames for mail servers
 products_mail = ["Microsoft Exchange"]
-for _ in range(10):
-    hostname = f"Mail_{random.randint(100, 999)}"
+for _ in range(5):
+    hostname = f"Mail.Company.com.{random.randint(100, 999)}"
     hostnames.append({
         "hostname": hostname,
         "type": "mail_server",
-        "product": random.choice(products_mail),
-        "cmdb_categori": "Network",
+        "product": "Microsoft Exchange Server",
+        "cmdb_categori": "Server",
         "cmdb_subcategori": "Exchange",
         "cmdb_ci": "microsoft_exchange_server",
+        "status": "",
+        "last_checked": "",
+        "assigned_app": "",
         "ip": ""
     })
 
 # Generate hostnames for VMs
 products_vm = ["VMware"]
-for _ in range(20):
+for _ in range(10):
     hostname = f"VMware_{random.randint(100, 999)}"
     hostnames.append({
         "hostname": hostname,
@@ -100,11 +126,29 @@ for _ in range(20):
         "product": random.choice(products_vm),
         "cmdb_categori": "Network",
         "cmdb_subcategori": "VMware",
-        "cmdb_ci": "vmware_vmware_server",
+        "cmdb_ci": "vmware_server",
+        "status": "",
+        "last_checked": "",
+        "assigned_app": "",
         "ip": ""
     })
 
-
+    # Generate hostnames for Citrix VDI
+    products_vm = ["Citrix_VDI"]
+    for _ in range(20):
+        hostname = f"citrix_{random.randint(100, 999)}"
+        hostnames.append({
+            "hostname": hostname,
+            "type": "VDI_Infrastructure",
+            "product": "Citrix Virtual Apps and Desktops",
+            "cmdb_categori": "Server",
+            "cmdb_subcategori": "Application Delivery",
+            "cmdb_ci": "citrix_delivery_controller",
+            "status": "",
+            "last_checked": "",
+            "assigned_app": "",
+            "ip": ""
+        })
 
     try:
         # Folder where you want to save the file

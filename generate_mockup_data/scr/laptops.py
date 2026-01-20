@@ -25,6 +25,9 @@ for i in range(1000):
             "storage": "1 TB",
             "ip": "",
             "mac": "",
+            "status": "",
+            "last_checked": "",
+            "assigned_app_laptop": "",
             "assigned_user": ""
         })
     else:  # 20% ZBook Studio G11
@@ -42,6 +45,9 @@ for i in range(1000):
             "storage": "1 TB",
             "ip": "",
             "mac": "",
+            "status": "",
+            "last_checked": "",
+            "assigned_app_laptop": "",
             "assigned_user": ""
         })
 

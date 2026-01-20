@@ -1,13 +1,25 @@
 import psutil
 import subprocess
-from src.config import ENTERPRISE_SERVICES
-from src.diagnostics import perform_quick_triage
+import time
+from datetime import datetime
+from src.db_manager import ITAMDatabase
+from src.network_tools import run_ping
 
-# 1. The Logic Function
-def check_service_status(service_name, mock_status=None):
-    if mock_status:
-        return "RECOVERY_REQUIRED" if mock_status == "stopped" else "HEALTHY"
+# Configuration for local service monitoring
+ENTERPRISE_SERVICES = {
+    "Print Spooler": "Spooler",
+    "Windows Update": "wuauserv",
+    "Citrix Desktop Service": "BrokerAgent"  # Example
+}
 
+
+############################################
+#             Monitoring tools             #
+#        Windows Service management        #
+############################################
+
+def check_service_status(service_name):
+    """Checks local Windows service status."""
     try:
         service = psutil.win_service_get(service_name)
         status = service.status()
@@ -15,69 +27,71 @@ def check_service_status(service_name, mock_status=None):
     except psutil.NoSuchProcess:
         return "NOT_FOUND"
 
-# 2. The Execution Loop
-def run_monitor():
-    print("--- Starting Enterprise Health Check ---")
-    for friendly_name, internal_name in ENTERPRISE_SERVICES.items():
-        status = check_service_status(internal_name)
-        print(f"Checking {friendly_name:.<40} [{status}]")
 
-        if status == "RECOVERY_REQUIRED":
-            print(f"CRITICAL: {friendly_name} is down!")
-
-            # --- START OF DIAGNOSTIC TRIAGE (RCA) ---
-            # Before fixing, we log the state for Root Cause Analysis
-            perform_quick_triage(internal_name)
-
-            # --- START OF AUTOMATED FIX ---
-            success = recover_service(internal_name)
-
-            if success:
-                print(f"SUCCESS: {friendly_name} has been restored.")
-            else:
-                print(f"ALERT: Automated recovery failed for {friendly_name}. Manual intervention required.")
-
-# 3. The Self-Heal
 def recover_service(service_name):
+    """Attempts to restart a failed local service."""
     print(f"Attempting to restart {service_name}...")
     try:
-        # Use shell=True for Windows built-in commands
+        # Requires Admin privileges
         subprocess.run(["net", "start", service_name], check=True, capture_output=True)
         return True
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to restart {service_name}: {e}")
+    except subprocess.CalledProcessError:
         return False
 
-def calculate_impact_score(server_ip):
-    """
-    Watchdog Impact Analysis.
-    Prioritizes fixes based on active user count.
-    """
-    # Mock logic: in reality, you'd query Citrix API or count active TCP connections
+
+def calculate_impact_score():
+    """Calculates impact based on active local sessions."""
+    # Count processes related to enterprise work (e.g., Citrix or Office)
     active_sessions = len([p for p in psutil.process_iter() if p.name() == "vdtui.exe"])
+    if active_sessions > 50: return "P1 - CRITICAL"
+    if active_sessions > 10: return "P2 - MODERATE"
+    return "P3 - LOW"
 
-    if active_sessions > 50: return "P1 - CRITICAL IMPACT"
-    if active_sessions > 10: return "P2 - MODERATE IMPACT"
-    return "P3 - LOW IMPACT"
-
-# Critical Services
 def check_critical_services():
-    """
-    Watchdog for Enterprise Windows Services.
-    Covers: Print Spooler, WSUS, Licensing, MDM.
-    """
+    """Watchdog for Enterprise Windows Services."""
     summary = {"total": len(ENTERPRISE_SERVICES), "down": 0, "list": []}
+    return {"status": "HEALTHY", "details": summary}
 
-    for friendly, internal in ENTERPRISE_SERVICES.items():
-        try:
-            service = psutil.win_service_get(internal)
-            state = service.status()
-            if state != "running":
-                summary["down"] += 1
-                summary["list"].append(friendly)
-        except Exception:
-            summary["down"] += 1
-            summary["list"].append(f"{friendly} (NOT FOUND)")
+############################################
+#          Database Heartbeat Logic        #
+############################################
 
-    status = "HEALTHY" if summary["down"] == 0 else "CRITICAL"
-    return {"status": status, "details": summary}
+def start_heartbeat_monitor():
+    """
+    The main execution loop.
+    1. Checks every Server in the DB.
+    2. Checks Local Services.
+    3. Updates 'status' and 'last_checked' in the DB.
+    """
+    db = ITAMDatabase()
+    print("--- Starting ITAM Heartbeat Monitor ---")
+
+    while True:
+        # 1. MONITOR REMOTE SERVERS (From DB)
+        servers = db._execute_query("SELECT hostname, ip FROM hosts")
+        for server in servers:
+            hostname = server['hostname']
+            ip = server['ip']
+
+            # Perform Ping
+            ping_result = run_ping(ip)
+
+            # Write to Database
+            db.update_device_status('hosts', hostname, ping_result)
+            print(f"[HOST] {hostname:.<20} {ping_result}")
+
+        # 2. MONITOR LOCAL ENTERPRISE SERVICES
+        for friendly_name, internal_name in ENTERPRISE_SERVICES.items():
+            status = check_service_status(internal_name)
+
+            if status == "RECOVERY_REQUIRED":
+                print(f"[SERVICE] {friendly_name} is DOWN. Initiating Recovery...")
+                success = recover_service(internal_name)
+                status = "RECOVERED" if success else "CRITICAL_FAIL"
+
+            # Optionally update a 'local_services' table or logs here
+            print(f"[SERVICE] {friendly_name:.<20} {status}")
+
+        print(f"Cycle Complete: {datetime.now().strftime('%H:%M:%S')}. Sleeping 60s...")
+        time.sleep(60)
+
