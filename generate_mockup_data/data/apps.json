@@ -1,0 +1,101 @@
+[
+  {
+    "app_name": "Word 2019",
+    "app_version": "2512",
+    "build": "19530.20144",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "O365",
+    "cmdb_ci": "microsoft_office",
+    "vendor": "Microsoft",
+    "device_type": "Laptop/Desktop"
+  },
+  {
+    "app_name": "Excel 2019",
+    "app_version": "2512",
+    "build": "19530.20144",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "O365",
+    "cmdb_ci": "microsoft_excel",
+    "vendor": "Microsoft",
+    "device_type": "Laptop/Desktop"
+  },
+  {
+    "app_name": "OneDrive 2019",
+    "app_version": "2512",
+    "build": "19530.20144",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "O365",
+    "cmdb_ci": "microsoft_onedrive",
+    "vendor": "Microsoft",
+    "device_type": "Cloud Storage"
+  },
+  {
+    "app_name": "Outlook 2019",
+    "app_version": "2512",
+    "build": "19530.20144",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "O365",
+    "cmdb_ci": "microsoft_outlook",
+    "vendor": "Microsoft",
+    "device_type": "Email Client"
+  },
+  {
+    "app_name": "Windows 11",
+    "app_version": "25H2",
+    "build": "26200.7623",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "Operating System",
+    "cmdb_ci": "microsoft_windows_11",
+    "vendor": "Microsoft",
+    "device_type": "OS"
+  },
+  {
+    "app_name": "GlobalProtect",
+    "app_version": "6.3.3",
+    "build": "6.3.3-c650",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "VPN",
+    "cmdb_ci": "globalprotect_vpn",
+    "vendor": "Palo Alto Networks",
+    "device_type": "Security"
+  },
+  {
+    "app_name": "Teams",
+    "app_version": "26005.204.4249.1621",
+    "build": "2025.49.0-1.8-hee8e9",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "Communication",
+    "cmdb_ci": "microsoft_teams_app",
+    "vendor": "Microsoft",
+    "device_type": "Collaboration"
+  },
+  {
+    "app_name": "Edge",
+    "app_version": "2026",
+    "build": "143.0.3650.139",
+    "cmdb_category": "Application",
+    "cmdb_subcategory": "Browser",
+    "cmdb_ci": "edge_web_browser",
+    "vendor": "Microsoft",
+    "device_type": "Browser"
+  },
+  {
+    "app_name": "Amazon Web Services",
+    "app_version": null,
+    "server": "eu-north-1 (Stockholm)",
+    "cmdb_category": "Infrastructure",
+    "cmdb_subcategory": "Cloud Provider",
+    "cmdb_ci": "amazon_web_services",
+    "vendor": "Amazon",
+    "device_type": "Cloud Server"
+  },
+  {
+    "app_name": "Google Cloud Platform",
+    "server": "europe-north2 (Stockholm)",
+    "cmdb_category": "Infrastructure",
+    "cmdb_subcategory": "Cloud Provider",
+    "cmdb_ci": "google_cloud_server",
+    "vendor": "Google",
+    "device_type": "Cloud Server"
+  }
+]
